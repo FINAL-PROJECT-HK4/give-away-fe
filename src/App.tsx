@@ -1,29 +1,59 @@
-import { useEffect, useState } from "react";
-import { initInitData } from "@telegram-apps/sdk";
+import { useEffect } from "react";
+// import { useLaunchParams } from "@telegram-apps/sdk-react";
+import { AppRoot } from "@telegram-apps/telegram-ui";
+import {
+  bindMiniAppCSSVars,
+  bindThemeParamsCSSVars,
+  bindViewportCSSVars,
+  useLaunchParams,
+  useMiniApp,
+  useThemeParams,
+  useViewport,
+} from "@telegram-apps/sdk-react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { routes } from "./navigation/routes";
 
 const App = () => {
-  const [launchData, setLaunchData] = useState(null);
+  const lp = useLaunchParams();
+  const miniApp = useMiniApp();
+  const themeParams = useThemeParams();
+  const viewport = useViewport();
 
   useEffect(() => {
-    // Sử dụng initInitData để khởi tạo dữ liệu Telegram
-    const data = initInitData();
-    setLaunchData(data);
-    console.log("Launch Data:", data); // In dữ liệu ra console để kiểm tra
-  }, []);
+    return bindMiniAppCSSVars(miniApp, themeParams);
+  }, [miniApp, themeParams]);
+
+  useEffect(() => {
+    return bindThemeParamsCSSVars(themeParams);
+  }, [themeParams]);
+
+  useEffect(() => {
+    return viewport && bindViewportCSSVars(viewport);
+  }, [viewport]);
+  // const launchParams = useLaunchParams();
+  // const [username, setUsername] = useState<string | undefined>("");
+  // useEffect(() => {
+  //   if (launchParams) {
+  //     const user = launchParams.initData?.user?.username;
+  //     console.log("User info:", launchParams);
+  //     setUsername(user);
+  //   }
+  // }, [launchParams]);
 
   return (
-    <div>
-      <h1>Ứng dụng Telegram</h1>
-      {launchData ? (
-        <div>
-          <p>First Name: {launchData.user?.first_name}</p>
-          <p>Last Name: {launchData.user?.last_name}</p>
-          <p>Username: {launchData.user?.username}</p>
-        </div>
-      ) : (
-        <p>Đang tải dữ liệu từ Telegram...</p>
-      )}
-    </div>
+    <AppRoot
+      appearance={miniApp.isDark ? "dark" : "light"}
+      platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
+    >
+      <BrowserRouter>
+        <Routes>
+          {routes.map((route) => (
+            <Route key={route.path} {...route} />
+          ))}
+          <Route path="*" element={<Navigate to="/home-page" />} />
+        </Routes>
+      </BrowserRouter>
+    </AppRoot>
   );
 };
 
