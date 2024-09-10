@@ -30,6 +30,7 @@ const App = () => {
   useEffect(() => {
     return viewport && bindViewportCSSVars(viewport);
   }, [viewport]);
+  const footersHeight = 70;
 
   return (
     <AppRoot
@@ -45,13 +46,16 @@ const App = () => {
               element={
                 <>
                   <route.Component />
-                  {route.isFooter && <Footer />}
+
+                  <div style={{ marginTop: `${footersHeight - 36}px` }}></div>
+                  {route.isFooter && <Footer height={footersHeight}/>}
                 </>
               }
             />
           ))}
           <Route path="*" element={<Navigate to="/home-page" />} />
         </Routes>
+        
       </BrowserRouter>
     </AppRoot>
   );

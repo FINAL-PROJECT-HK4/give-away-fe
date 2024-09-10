@@ -7,3 +7,94 @@ body {
   color: #ffffff;
   padding: 20px;
 }
+
+.custom-slide {
+  width: 100%;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 130px;
+  border-radius: 18px;
+}
+
+/* Đặt các dots ra ngoài phía dưới carousel */
+.swiper-pagination {
+  position: absolute;
+  bottom: -15px; /* Đưa dots xuống phía dưới */
+  left: 50%;
+}
+
+.custom-swiper {
+  position: relative; /* Đảm bảo container có thể sử dụng absolute cho pagination */
+  padding-bottom: 34px; /* Thêm khoảng trống phía dưới cho dots */
+}
+
+.swiper {
+  width: 100%; 
+  height: 100%; 
+}
+
+.swiper-pagination-bullet {
+  background-color: #333333; /* Inactive dot color */
+  opacity: 1; /* Ensure full opacity */
+}
+
+/* Change the color of the active dot */
+.swiper-pagination-bullet-active {
+  background-color: #ffffff; /* Active dot color */
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  display: none !important;
+}
+.swiper-scrollbar {
+  display: none !important;
+}
+
+.ellipsis {
+  white-space: nowrap;      /* Ngăn text xuống dòng */
+  overflow: hidden;         /* Ẩn phần text vượt quá kích thước */
+  text-overflow: ellipsis;
+  width: 320px;   /* Thêm dấu "..." khi text quá dài */
+}
+
+@keyframes popup-appear {
+  0% {
+    opacity: 0;
+    transform: translateY(100px); /* Bắt đầu từ vị trí dưới */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Di chuyển lên vị trí ban đầu */
+  }
+}
+
+.popup {
+  animation: popup-appear .3s ease-in-out;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(100px); /* Trả về vị trí dưới khi ẩn */
+  pointer-events: none; /* Đảm bảo không tương tác khi ẩn */
+}
+
+.overlay {
+  position: fixed; /* Để lớp màng phủ phủ toàn bộ viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Màu đen với độ trong suốt 50% */
+  z-index: 999; /* Đảm bảo lớp màng phủ nằm trên các phần tử khác */
+  display: none; /* Mặc định ẩn lớp màng phủ */
+}
+
+.wordWrap {
+  word-wrap: break-word; /* Hoặc sử dụng overflow-wrap: break-word; */
+}

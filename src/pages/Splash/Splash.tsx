@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Splash() {
   const [referralCode, setReferralCode] = useState("");
   const navigate = useNavigate();
+
   const handleClick = async () => {
     const [viewport] = initViewport();
     const vp = await viewport;
