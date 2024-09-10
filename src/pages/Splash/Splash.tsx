@@ -1,13 +1,19 @@
 import { initViewport } from "@telegram-apps/sdk";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Splash() {
+  const [referralCode, setReferralCode] = useState("");
   const navigate = useNavigate();
   const handleClick = async () => {
     const [viewport] = initViewport();
     const vp = await viewport;
     vp.expand();
     navigate("/home-page");
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setReferralCode(e.target.value);
   };
 
   return (
@@ -22,7 +28,18 @@ function Splash() {
         </div>
         <div className="text-center pt-10">
           <p className="text-4xl py-4">👋 Hey!</p>
-          <p>You’ve been in telegram for a while, it’s time to get rewarded!</p>
+          <p>Enter your referral code to get your reward!</p>
+        </div>
+        <div className="flex flex-col space-y-2">
+          <label className=" font-medium">*Referral code</label>
+          <input
+            type="text"
+            value={referralCode}
+            onChange={handleChange}
+            maxLength={6}
+            placeholder="Enter referral code"
+            className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
         </div>
         <div className="w-full pt-6">
           <button
