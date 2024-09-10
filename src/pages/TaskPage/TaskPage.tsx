@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Task() {
+function TaskPage() {
   const [loading, setLoading] = useState<number | null>(null);
 
   const handleButtonClick = (url: string) => {
@@ -38,4 +38,4 @@ function Task() {
   );
 }
 
-export default Task;
+export default TaskPage;

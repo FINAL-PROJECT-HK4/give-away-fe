@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-// import { useLaunchParams } from "@telegram-apps/sdk-react";
 import { AppRoot } from "@telegram-apps/telegram-ui";
 import {
   bindMiniAppCSSVars,
@@ -12,6 +11,7 @@ import {
 } from "@telegram-apps/sdk-react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { routes } from "./navigation/routes";
+import Footer from "./components/Footer";
 
 const App = () => {
   const lp = useLaunchParams();
@@ -30,15 +30,6 @@ const App = () => {
   useEffect(() => {
     return viewport && bindViewportCSSVars(viewport);
   }, [viewport]);
-  // const launchParams = useLaunchParams();
-  // const [username, setUsername] = useState<string | undefined>("");
-  // useEffect(() => {
-  //   if (launchParams) {
-  //     const user = launchParams.initData?.user?.username;
-  //     console.log("User info:", launchParams);
-  //     setUsername(user);
-  //   }
-  // }, [launchParams]);
 
   return (
     <AppRoot
@@ -48,7 +39,16 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           {routes.map((route) => (
-            <Route key={route.path} {...route} />
+            <Route
+              key={route.path}
+              path={route.path}
+              element={
+                <>
+                  <route.Component />
+                  {route.isFooter && <Footer />}
+                </>
+              }
+            />
           ))}
           <Route path="*" element={<Navigate to="/home-page" />} />
         </Routes>
