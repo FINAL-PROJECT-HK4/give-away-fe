@@ -1,5 +1,3 @@
-import { useLaunchParams } from "@telegram-apps/sdk-react";
-import { useEffect, useState } from "react";
 import ClonedLogo from "../../assets/czclone.png";
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,18 +7,6 @@ import "swiper/css/pagination";
 import Reward from "./Reward";
 
 function HomePage() {
-  const launchParams = useLaunchParams();
-  const [username, setUsername] = useState<string>("");
-
-  useEffect(() => {
-    if (launchParams) {
-      const user = launchParams.initData?.user?.username;
-
-      console.log("user's info: ", user);
-      setUsername(user || "");
-    }
-  }, [launchParams]);
-
   return (
     <div className="flex flex-col justify-center items-center py-4">
       <TonConnectButton className="mb-2" />
@@ -30,7 +16,7 @@ function HomePage() {
         <h1 className="text-3xl font-bold mt-9">25,850</h1>
         <p className="mt-1 text-[#aaaaaa] font-semibold text-xl">CZP</p>
       </div>
-      
+
       <Swiper
         modules={[Pagination, A11y]}
         spaceBetween={8}

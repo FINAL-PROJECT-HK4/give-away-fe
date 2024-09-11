@@ -21,7 +21,7 @@ interface Window {
         chat?: {
           id: number;
           title: string;
-          type: 'private' | 'group' | 'supergroup' | 'channel';
+          type: "private" | "group" | "supergroup" | "channel";
         };
         chat_type?: string; // "sender", "private", "group", "supergroup", "channel"
         chat_instance?: string;

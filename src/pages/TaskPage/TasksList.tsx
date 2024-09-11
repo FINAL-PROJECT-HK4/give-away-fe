@@ -1,10 +1,5 @@
-import { useState } from "react";
-
 function TasksList() {
-
-  return (
-   <div></div>
-  );
+  return <div></div>;
 }
 
 export default TasksList;
