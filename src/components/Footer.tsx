@@ -1,17 +1,20 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
-function Footer() {
+function Footer({ height }: { height: number }) {
   const navigate = useNavigate();
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
-  console.log("location", location.pathname);
 
   const handleNavigation = (path: string) => {
     navigate(path);
   };
+
   return (
-    <div className="fixed bottom-0 left-0 w-full flex justify-around items-center py-4">
+    <div
+      className={`fixed z-10 bg-black bottom-0 left-0 w-full flex justify-around items-center py-4`}
+      style={{ height: `${height}px` }}
+    >
       <div
         className="flex flex-col items-center"
         role="button"
@@ -63,7 +66,7 @@ function Footer() {
         <div
           className={`${isActive("/reward") ? "text-white" : "text-[#A6A6A6]"}`}
         >
-          Reward
+          Tasks
         </div>
       </div>
       <div
