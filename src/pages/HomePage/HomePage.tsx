@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, A11y } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import Reward from "./Reward";
+// import Reward from "./Reward";
 
 function HomePage() {
   return (
@@ -33,7 +33,7 @@ function HomePage() {
         <SwiperSlide className="custom-slide">Slide 3</SwiperSlide>
         <SwiperSlide className="custom-slide">Slide 4</SwiperSlide>
       </Swiper>
-      <Reward />
+      {/* <Reward /> */}
     </div>
   );
 }

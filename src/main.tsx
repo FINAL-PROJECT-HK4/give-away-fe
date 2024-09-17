@@ -5,6 +5,8 @@ import { THEME, TonConnectUIProvider } from "@tonconnect/ui-react";
 
 import App from "./App.tsx";
 import "./index.css";
+import { Provider } from "react-redux";
+import store from "./redux/store.ts";
 
 // Tạo root và render component
 createRoot(document.getElementById("root")!).render(
@@ -17,7 +19,7 @@ createRoot(document.getElementById("root")!).render(
           [THEME.DARK]: {
             connectButton: {
               background: "#ffffff",
-              foreground: "#000000"
+              foreground: "#000000",
             },
           },
         },
@@ -109,7 +111,9 @@ createRoot(document.getElementById("root")!).render(
       }}
     >
       <SDKProvider acceptCustomStyles debug>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </SDKProvider>
     </TonConnectUIProvider>
   </StrictMode>

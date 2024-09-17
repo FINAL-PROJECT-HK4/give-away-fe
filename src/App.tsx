@@ -12,6 +12,8 @@ import {
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { routes } from "./navigation/routes";
 import Footer from "./components/Footer";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   const lp = useLaunchParams();
@@ -37,6 +39,7 @@ const App = () => {
       appearance={miniApp.isDark ? "dark" : "light"}
       platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
     >
+      <ToastContainer />
       <BrowserRouter>
         <Routes>
           {routes.map((route) => (
@@ -48,14 +51,13 @@ const App = () => {
                   <route.Component />
 
                   <div style={{ marginTop: `${footersHeight - 36}px` }}></div>
-                  {route.isFooter && <Footer height={footersHeight}/>}
+                  {route.isFooter && <Footer height={footersHeight} />}
                 </>
               }
             />
           ))}
           <Route path="*" element={<Navigate to="/home-page" />} />
         </Routes>
-        
       </BrowserRouter>
     </AppRoot>
   );
