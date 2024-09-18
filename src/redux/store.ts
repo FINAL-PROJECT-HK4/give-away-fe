@@ -1,11 +1,13 @@
 // src/redux/store.ts
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./auth/authSlice";
+import userReducer from "./userSlice";
 
 // Tạo store và kết hợp reducer
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    user: userReducer,
   },
 });
 

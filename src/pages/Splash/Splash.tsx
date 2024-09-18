@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../redux/store";
+import { setUser, clearUser } from "../../redux/userSlice";
 import { setTokens } from "../../redux/auth/authSlice";
 import { toast } from "react-toastify";
 
@@ -28,7 +29,12 @@ function Splash() {
     if (initDataUnsafe?.start_param) {
       setInvitedCode(initDataUnsafe?.start_param);
     }
-  }, []);
+    if (initDataUnsafe && initDataUnsafe.user) {
+      dispatch(setUser(initDataUnsafe.user));
+    } else {
+      dispatch(clearUser());
+    }
+  }, [dispatch]);
 
   const handleLogin = async (initData: InitDataProps) => {
     try {

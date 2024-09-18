@@ -66,7 +66,7 @@ function Footer({ height }: { height: number }) {
         <div
           className={`${isActive("/reward") ? "text-white" : "text-[#A6A6A6]"}`}
         >
-          Tasks
+          Reward
         </div>
       </div>
       <div

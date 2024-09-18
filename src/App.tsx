@@ -14,6 +14,7 @@ import { routes } from "./navigation/routes";
 import Footer from "./components/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { UserProvider } from "./contexts/UserContext";
 
 const App = () => {
   const lp = useLaunchParams();
@@ -35,31 +36,33 @@ const App = () => {
   const footersHeight = 70;
 
   return (
-    <AppRoot
-      appearance={miniApp.isDark ? "dark" : "light"}
-      platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
-    >
-      <ToastContainer />
-      <BrowserRouter>
-        <Routes>
-          {routes.map((route) => (
-            <Route
-              key={route.path}
-              path={route.path}
-              element={
-                <>
-                  <route.Component />
+    <UserProvider>
+      <AppRoot
+        appearance={miniApp.isDark ? "dark" : "light"}
+        platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
+      >
+        <ToastContainer />
+        <BrowserRouter>
+          <Routes>
+            {routes.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={
+                  <>
+                    <route.Component />
 
-                  <div style={{ marginTop: `${footersHeight - 36}px` }}></div>
-                  {route.isFooter && <Footer height={footersHeight} />}
-                </>
-              }
-            />
-          ))}
-          <Route path="*" element={<Navigate to="/home-page" />} />
-        </Routes>
-      </BrowserRouter>
-    </AppRoot>
+                    <div style={{ marginTop: `${footersHeight - 36}px` }}></div>
+                    {route.isFooter && <Footer height={footersHeight} />}
+                  </>
+                }
+              />
+            ))}
+            <Route path="*" element={<Navigate to="/home-page" />} />
+          </Routes>
+        </BrowserRouter>
+      </AppRoot>
+    </UserProvider>
   );
 };
 
