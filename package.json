@@ -29,6 +29,7 @@
     "eruda": "^3.2.3",
     "firebase": "^10.13.1",
     "react": "^18.3.1",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.3.1",
     "react-error-boundary": "^4.0.13",
     "react-redux": "^9.1.2",
@@ -40,6 +41,7 @@
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@types/react": "^18.3.3",
+    "@types/react-copy-to-clipboard": "^5.0.7",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.20",
