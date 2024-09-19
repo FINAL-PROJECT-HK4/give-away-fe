@@ -16,6 +16,7 @@ interface InitDataProps {
 function Splash() {
   const [invitedCode, setInvitedCode] = useState<string | null>(null);
   const [queryId, setQueryId] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -26,6 +27,7 @@ function Splash() {
     if (queryIdUser) {
       setQueryId(queryIdUser);
     }
+
     if (initDataUnsafe?.start_param) {
       setInvitedCode(initDataUnsafe?.start_param);
     }
@@ -61,7 +63,10 @@ function Splash() {
   };
 
   const handleClick = async () => {
+    setLoading(true);
     const isLoggedIn = await handleLogin({ queryId, invitedCode });
+    setLoading(isLoggedIn);
+
     if (isLoggedIn) {
       const [viewport] = initViewport();
       const vp = await viewport;
@@ -90,7 +95,11 @@ function Splash() {
             onClick={handleClick}
             className={`w-full h-12  rounded-full text-white bg-[#2f7cf6] `}
           >
-            Wow, let’s go!
+            {loading ? (
+              <span className="loading loading-spinner loading-sm"></span>
+            ) : (
+              "Wow, let’s go!"
+            )}
           </button>
         </div>
       </div>
