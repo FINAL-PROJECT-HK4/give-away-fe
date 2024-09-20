@@ -6,6 +6,7 @@ import { useUser } from "../../hooks/useUser";
 import FriendList from "./components/FriendList";
 import InformationInvite from "./components/InformationInvite";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast } from "react-toastify";
 
 function InviteFriendsReferral() {
   const [openReferral, setOpenReferral] = useState<boolean>(false);
@@ -36,6 +37,7 @@ function InviteFriendsReferral() {
     };
     getInfoUser();
   }, []);
+  console.log("freeeeeee", friends);
 
   const inviteLink = `https://t.me/barotran_mini_bot/naikyo?startapp=${inviteCode}`;
   const message = "Join me on this platform!";
@@ -54,7 +56,7 @@ function InviteFriendsReferral() {
         className=" w-14 h-14"
       />
       <p className="font-bold text-3xl text-center w-[67%]">Invite friends</p>
-      <p className="font-bold text-3xl text-center">and get more CZP</p>
+      <p className="font-bold text-3xl text-center">and get more MP</p>
 
       <button
         onClick={handleOpenReferral}
@@ -90,6 +92,9 @@ function InviteFriendsReferral() {
           <div className="w-[98%] mx-auto ">
             <CopyToClipboard
               text={`https://t.me/barotran_mini_bot/naikyo?startapp=${inviteCode}`}
+              onCopy={() => {
+                toast.success("Copy successful");
+              }}
             >
               <button className="bg-white mt-6 text-black text-base font-[600] w-full py-3 tracking-normal rounded-lg">
                 Copy invite link

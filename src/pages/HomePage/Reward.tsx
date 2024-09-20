@@ -23,7 +23,7 @@ function EveryRewardEl({ icon, nameOfReward, amountToken }: EveryReward) {
       </div>
 
       <div className="w-fit font-medium flex items-center h-[40px]">
-        +{Intl.NumberFormat().format(amountToken)} CZP
+        +{Intl.NumberFormat().format(amountToken)} MP
       </div>
     </div>
   );
@@ -51,17 +51,17 @@ function Reward() {
   const rewardArr: EveryReward[] = [
     {
       icon: faUser,
-      nameOfReward: "Be a good CZP Fan",
+      nameOfReward: "Be a good MP Fan",
       amountToken: 50,
     },
     {
       icon: faXTwitter,
-      nameOfReward: "Subscribe to CZP X.com",
+      nameOfReward: "Subscribe to MP X.com",
       amountToken: 1000,
     },
     {
       icon: faXTwitter,
-      nameOfReward: "Subscribeeeeeeee to CZP X.com",
+      nameOfReward: "Subscribeeeeeeee to MP X.com",
       amountToken: 1000,
     },
   ];
