@@ -1,4 +1,3 @@
-import { TonConnectButton } from "@tonconnect/ui-react";
 import Tasks from "./Tasks";
 import Avatar from "../../components/Avatar";
 import { useEffect, useState } from "react";
@@ -27,14 +26,13 @@ function HomePage() {
 
   return (
     <div className="flex flex-col justify-center items-center py-4">
-      <TonConnectButton className="mb-2" />
       <div className="flex flex-col justify-center items-center py-4">
         <Avatar name={user.username || ""} />
         <p className="mt-4 text-[#aaaaaa] font-semibold text-xl">
           {user.username}
         </p>
         {pointUser !== null ? (
-          <h1 className="text-3xl font-bold mt-5">{pointUser} CZP</h1>
+          <h1 className="text-3xl font-bold mt-5">{pointUser} MP</h1>
         ) : (
           <SkeletonPointUser />
         )}
