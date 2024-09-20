@@ -5,6 +5,10 @@ import { setTokens, clearTokens } from "../redux/auth/authSlice";
 // Tạo một instance của axios với URL cơ bản
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BE_URL,
+  headers: {
+    "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "true",
+  },
 });
 
 axiosInstance.interceptors.request.use(

@@ -22,8 +22,14 @@ function Splash() {
 
   useEffect(() => {
     const webApp = window.Telegram.WebApp;
-    const initDataUnsafe = webApp.initDataUnsafe;
+    const { initDataUnsafe } = webApp;
     const queryIdUser = webApp.initData;
+
+    if (initDataUnsafe) {
+      localStorage.setItem("username", initDataUnsafe?.user?.username || "");
+      localStorage.setItem("userId", initDataUnsafe?.user?.id.toString() || "");
+    }
+
     if (queryIdUser) {
       setQueryId(queryIdUser);
     }

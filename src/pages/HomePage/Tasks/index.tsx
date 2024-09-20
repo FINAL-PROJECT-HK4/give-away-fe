@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Task from "./Task";
 import Categories from "./Categories";
 import SkeletonTasks from "../../../components/SkeletonTasks";
-import { useUser } from "../../../hooks/useUser";
 import axiosInstance from "../../../utils/axiosInstance";
 
 export interface Category {
@@ -23,14 +22,18 @@ export interface TaskItem {
   idTaskCategory: string;
   createAt: string;
   taskCategory: Category;
+  link: string;
 }
 
-function Tasks() {
-  // const [loading, setLoading] = useState<number | null>(null);
+interface IProps {
+  setPointUser: (point: number | ((prev: number | null) => number)) => void;
+}
+
+function Tasks({ setPointUser }: IProps) {
   const [tasks, setTasks] = useState<TaskItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [idCategoryActive, setIdCategoryActive] = useState<string>("");
-  const user = useUser();
+  const userId = useMemo(() => localStorage.getItem("userId"), []);
 
   const handleChangeCategory = (id: string) => {
     setIdCategoryActive(id);
@@ -40,7 +43,6 @@ function Tasks() {
     const getCategories = async () => {
       try {
         const categoriesData = await axiosInstance.get("/task/categories");
-
         if (!categoriesData) return;
 
         const formatCategories = categoriesData.data.map((category: any) => {
@@ -63,7 +65,7 @@ function Tasks() {
 
     const getTasks = async () => {
       try {
-        const tasksData = await axiosInstance.get(`tasks/${user.id}`);
+        const tasksData = await axiosInstance.get(`tasks/${userId}`);
         if (!tasksData) return;
 
         const formatTaskData = tasksData.data.map((task: any) => {
@@ -78,12 +80,14 @@ function Tasks() {
             taskCategory: {
               id: task.task_category.id,
               name: task.task_category.name,
-              minuteWait: task.task_category.minute_wait,
+              secondsWait: task.task_category.seconds_wait,
               social: task.task_category.social,
               updateAt: task.task_category.update_at,
             },
+            link: task.link,
           };
         });
+        console.log("chau", formatTaskData);
 
         setTasks(formatTaskData);
       } catch (error) {
@@ -99,7 +103,7 @@ function Tasks() {
     return task.idTaskCategory === idCategoryActive;
   });
 
-  if (categories.length === 0 || tasks.length === 0) return <SkeletonTasks />;
+  if (categories.length === 0) return <SkeletonTasks />;
 
   return (
     <>
@@ -110,8 +114,13 @@ function Tasks() {
           idCategoryActive={idCategoryActive}
         />
       )}
-      {tasksFiltered.length > 0 &&
-        tasksFiltered.map((task) => <Task key={task.id} task={task} />)}
+      {tasksFiltered.length > 0 ? (
+        tasksFiltered.map((task) => (
+          <Task key={task.id} task={task} setPointUser={setPointUser} />
+        ))
+      ) : (
+        <p className="text-white text-center">No tasks found</p>
+      )}
     </>
   );
 }

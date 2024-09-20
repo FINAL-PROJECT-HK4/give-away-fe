@@ -13,7 +13,6 @@ function EveryRewardEl({ icon, nameOfReward, amountToken }: EveryReward) {
   return (
     <div className="my-6 flex justify-between mx-auto">
       <div className="flex w-[70%]">
-        {/* hình tròn */}
         <div className="w-[44px] grid place-items-center h-[40px] bg-[#323232] rounded-full">
           <FontAwesomeIcon icon={icon} className="" />
         </div>

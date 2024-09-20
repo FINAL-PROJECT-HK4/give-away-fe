@@ -1,14 +1,15 @@
 import { TonConnectButton } from "@tonconnect/ui-react";
 import Tasks from "./Tasks";
 import Avatar from "../../components/Avatar";
-import { useUser } from "../../hooks/useUser";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import SkeletonPointUser from "../../components/SkeletonPointUser";
+import { useUser } from "../../hooks/useUser";
 
 function HomePage() {
   const [pointUser, setPointUser] = useState<number | null>(null);
   const user = useUser();
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -22,15 +23,14 @@ function HomePage() {
       }
     };
     getUser();
-  }, []);
+  }, [user]);
 
   return (
     <div className="flex flex-col justify-center items-center py-4">
       <TonConnectButton className="mb-2" />
-
       <div className="flex flex-col justify-center items-center py-4">
-        <Avatar name={user.username!} />
-        <p className="mt-3 text-[#aaaaaa] font-semibold text-xl">
+        <Avatar name={user.username || ""} />
+        <p className="mt-4 text-[#aaaaaa] font-semibold text-xl">
           {user.username}
         </p>
         {pointUser !== null ? (
@@ -39,7 +39,7 @@ function HomePage() {
           <SkeletonPointUser />
         )}
       </div>
-      <Tasks />
+      <Tasks setPointUser={setPointUser} />
     </div>
   );
 }
