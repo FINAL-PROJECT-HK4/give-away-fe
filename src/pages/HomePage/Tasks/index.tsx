@@ -65,7 +65,7 @@ function Tasks({ setPointUser }: IProps) {
 
     const getTasks = async () => {
       try {
-        const tasksData = await axiosInstance.get(`tasks/${userId}`);
+        const tasksData = await axiosInstance.get(`tasks`);
         if (!tasksData) return;
 
         const formatTaskData = tasksData.data.map((task: any) => {
@@ -87,7 +87,6 @@ function Tasks({ setPointUser }: IProps) {
             link: task.link,
           };
         });
-        console.log("chau", formatTaskData);
 
         setTasks(formatTaskData);
       } catch (error) {

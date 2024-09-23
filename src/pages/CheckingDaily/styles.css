@@ -1,0 +1,52 @@
+.day-number {
+  font-size: 170px;
+  animation: slideDown 1s ease-out, gentleGlow 2s ease-in-out infinite;
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes gentleGlow {
+  0% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #ff9;
+  }
+  50% {
+    text-shadow: 0 0 10px #fff, 0 0 15px #ffd700;
+  }
+  100% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #ff9;
+  }
+}
+.streak-number {
+  opacity: 0;
+  transform: translateY(-100px); /* Bắt đầu từ phía trên */
+  animation: slideDown 1s ease-out forwards;
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px); /* Bắt đầu từ vị trí trên cao */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Kết thúc ở vị trí ban đầu */
+  }
+}
+
+.continue-btn {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.continue-btn:active {
+  transform: scale(0.95);
+  background-color: #f0f0f0; /* Màu nền khi nhấn */
+}

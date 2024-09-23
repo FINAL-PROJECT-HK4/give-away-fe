@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
-import { useUser } from "../../hooks/useUser";
 import FriendList from "./components/FriendList";
 import InformationInvite from "./components/InformationInvite";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -16,14 +15,13 @@ function InviteFriendsReferral() {
   const handleOpenReferral = () => {
     setOpenReferral(true);
   };
-  const user = useUser();
 
   useEffect(() => {
     const getInfoUser = async () => {
       try {
         const [friendsResponse, inviteResponse] = await Promise.all([
-          axiosInstance.get(`/user/friends/${user.id}`),
-          axiosInstance.get(`/user/${user.id}`),
+          axiosInstance.get(`/user/friends`),
+          axiosInstance.get(`/user`),
         ]);
         if (friendsResponse) {
           setFriends(friendsResponse.data);
@@ -37,7 +35,6 @@ function InviteFriendsReferral() {
     };
     getInfoUser();
   }, []);
-  console.log("freeeeeee", friends);
 
   const inviteLink = `https://t.me/barotran_mini_bot/naikyo?startapp=${inviteCode}`;
   const message = "Join me on this platform!";

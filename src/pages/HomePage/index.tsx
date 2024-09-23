@@ -12,7 +12,7 @@ function HomePage() {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await axiosInstance.get(`/user/${user.id}`);
+        const response = await axiosInstance.get(`/user`);
 
         if (response) {
           setPointUser(response?.data?.reward_point);

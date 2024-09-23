@@ -19,7 +19,6 @@ const Task: React.FC<TaskItemProps> = ({ task, setPointUser }) => {
     try {
       const response = await axiosInstance.post("/task/claim", {
         taskId: task.id,
-        telegramId: user.id?.toString(),
       });
 
       return response.data;

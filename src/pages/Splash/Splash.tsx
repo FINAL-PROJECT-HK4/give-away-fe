@@ -7,6 +7,8 @@ import { AppDispatch } from "../../redux/store";
 import { setUser, clearUser } from "../../redux/userSlice";
 import { setTokens } from "../../redux/auth/authSlice";
 import { toast } from "react-toastify";
+import axiosInstance from "../../utils/axiosInstance";
+import { useUser } from "../../hooks/useUser";
 
 interface InitDataProps {
   queryId: string;
@@ -19,6 +21,7 @@ function Splash() {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+  const user = useUser();
 
   useEffect(() => {
     const webApp = window.Telegram.WebApp;
@@ -43,6 +46,20 @@ function Splash() {
       dispatch(clearUser());
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    try {
+      const checkDailyChecking = async () => {
+        const res = await axiosInstance.get(`checkin/${user.id}`);
+
+        //
+
+        if (true) {
+          navigate("/checking");
+        }
+      };
+    } catch (error) {}
+  }, []);
 
   const handleLogin = async (initData: InitDataProps) => {
     try {
@@ -77,9 +94,38 @@ function Splash() {
       const [viewport] = initViewport();
       const vp = await viewport;
       vp.expand();
-      navigate("/home-page");
+      navigate("/checking");
     }
   };
+
+  useEffect(() => {
+    const markAttendance = async () => {
+      try {
+        const { data } = await axiosInstance.get("/dailycheckin");
+
+        if (data.checkedIn) {
+          return navigate("/home-page");
+        }
+
+        const { data: checkinData } = await axiosInstance.get(
+          "/dailycheckin/checkin"
+        );
+
+        if (checkinData[0].handle_daily_checkin) {
+          const { consecutive_days, reward_points } =
+            checkinData[0].handle_daily_checkin;
+
+          return navigate(
+            `checking?consecutive_days=${consecutive_days}&reward_points=${reward_points}`
+          );
+        }
+      } catch (error) {
+        console.error("Failed to mark attendance:", error);
+      }
+    };
+
+    markAttendance();
+  }, [navigate]);
 
   return (
     <>
