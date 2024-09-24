@@ -9,7 +9,6 @@ import { setTokens } from "../../redux/auth/authSlice";
 import { toast } from "react-toastify";
 import axiosInstance from "../../utils/axiosInstance";
 import Logo from "../../assets/logoMMO.png";
-// import { useUser } from "../../hooks/useUser";
 
 interface InitDataProps {
   queryId: string;
@@ -22,7 +21,7 @@ function Splash() {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  // const user = useUser();
+  const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
     const webApp = window.Telegram.WebApp;
@@ -57,7 +56,7 @@ function Splash() {
 
       if (response.data.success) {
         const { accessToken, refreshToken } = response.data;
-        // Cập nhật tokens vào Redux và lưu trữ vào localStorage
+
         dispatch(setTokens({ accessToken, refreshToken }));
         return true;
       } else {
@@ -99,30 +98,25 @@ function Splash() {
   useEffect(() => {
     const markAttendance = async () => {
       try {
-        // Kiểm tra xem người dùng đã đăng nhập hay chưa
         const { data: loginData } = await axiosInstance.get("/user");
         if (loginData.error) {
           console.log("User is not logged in", loginData);
-          return; // Dừng lại nếu chưa đăng nhập
+          return;
         }
 
-        // Kiểm tra nếu người dùng đã check-in trong ngày
         const { data } = await axiosInstance.get("/dailycheckin");
         if (data.checkedIn) {
-          return navigate("/home-page"); // Điều hướng về trang chính nếu đã check-in
+          return navigate("/home-page");
         }
 
-        // Nếu chưa check-in, thực hiện check-in
         const { data: checkinData } = await axiosInstance.get(
           "/dailycheckin/checkin"
         );
 
-        // Kiểm tra kết quả check-in
         if (checkinData[0]?.handle_daily_checkin) {
           const { consecutive_days, reward_points } =
             checkinData[0].handle_daily_checkin;
 
-          // Điều hướng tới trang check-in
           return navigate(
             `/checking?consecutive_days=${consecutive_days}&reward_points=${reward_points}`
           );
@@ -147,16 +141,18 @@ function Splash() {
         </div>
 
         <div className="w-full pt-6">
-          <button
-            onClick={handleClick}
-            className={`w-full h-12  rounded-full text-white bg-[#2f7cf6] `}
-          >
-            {loading ? (
-              <span className="loading loading-spinner loading-sm"></span>
-            ) : (
-              "Wow, let’s go!"
-            )}
-          </button>
+          {!token && (
+            <button
+              onClick={handleClick}
+              className={`w-full h-12  rounded-full text-white bg-[#2f7cf6] `}
+            >
+              {loading ? (
+                <span className="loading loading-spinner loading-sm"></span>
+              ) : (
+                "Wow, let’s go!"
+              )}
+            </button>
+          )}
         </div>
       </div>
     </>

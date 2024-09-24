@@ -93,8 +93,8 @@ function Tasks({ setPointUser }: IProps) {
       }
     };
 
-    getCategories();
     getTasks();
+    getCategories();
   }, []);
 
   const tasksFiltered = tasks.filter((task) => {

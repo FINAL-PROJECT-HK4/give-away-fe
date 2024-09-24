@@ -88,7 +88,7 @@ const Task: React.FC<TaskItemProps> = ({ task, setPointUser }) => {
         <div className="h-10 w-10 rounded-full bg-[#323232] flex justify-center items-center">
           <img src={task.icon} alt="" className="w-4 h-4" />
         </div>
-        <div className="flex justify-between item flex-1 ">
+        <div className="flex justify-between item flex-1 mr-4">
           <div className="flex flex-col">
             <span className="text-base font-semibold">{task.name}</span>
             <span className="text-white text-base font-medium">
