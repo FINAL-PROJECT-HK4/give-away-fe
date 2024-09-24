@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { SDKProvider } from "@telegram-apps/sdk-react";
 import { THEME, TonConnectUIProvider } from "@tonconnect/ui-react";

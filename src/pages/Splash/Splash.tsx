@@ -8,7 +8,8 @@ import { setUser, clearUser } from "../../redux/userSlice";
 import { setTokens } from "../../redux/auth/authSlice";
 import { toast } from "react-toastify";
 import axiosInstance from "../../utils/axiosInstance";
-import { useUser } from "../../hooks/useUser";
+import Logo from "../../assets/logoMMO.png";
+// import { useUser } from "../../hooks/useUser";
 
 interface InitDataProps {
   queryId: string;
@@ -21,7 +22,7 @@ function Splash() {
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const user = useUser();
+  // const user = useUser();
 
   useEffect(() => {
     const webApp = window.Telegram.WebApp;
@@ -46,20 +47,6 @@ function Splash() {
       dispatch(clearUser());
     }
   }, [dispatch]);
-
-  useEffect(() => {
-    try {
-      const checkDailyChecking = async () => {
-        const res = await axiosInstance.get(`checkin/${user.id}`);
-
-        //
-
-        if (true) {
-          navigate("/checking");
-        }
-      };
-    } catch (error) {}
-  }, []);
 
   const handleLogin = async (initData: InitDataProps) => {
     try {
@@ -91,32 +78,53 @@ function Splash() {
     setLoading(isLoggedIn);
 
     if (isLoggedIn) {
-      const [viewport] = initViewport();
-      const vp = await viewport;
-      vp.expand();
-      navigate("/checking");
+      const { data: checkinData } = await axiosInstance.get(
+        "/dailycheckin/checkin"
+      );
+
+      if (checkinData[0].handle_daily_checkin) {
+        const { consecutive_days, reward_points } =
+          checkinData[0].handle_daily_checkin;
+
+        const [viewport] = initViewport();
+        const vp = await viewport;
+        vp.expand();
+        return navigate(
+          `checking?consecutive_days=${consecutive_days}&reward_points=${reward_points}`
+        );
+      }
     }
   };
 
   useEffect(() => {
     const markAttendance = async () => {
       try {
-        const { data } = await axiosInstance.get("/dailycheckin");
-
-        if (data.checkedIn) {
-          return navigate("/home-page");
+        // Kiểm tra xem người dùng đã đăng nhập hay chưa
+        const { data: loginData } = await axiosInstance.get("/user");
+        if (loginData.error) {
+          console.log("User is not logged in", loginData);
+          return; // Dừng lại nếu chưa đăng nhập
         }
 
+        // Kiểm tra nếu người dùng đã check-in trong ngày
+        const { data } = await axiosInstance.get("/dailycheckin");
+        if (data.checkedIn) {
+          return navigate("/home-page"); // Điều hướng về trang chính nếu đã check-in
+        }
+
+        // Nếu chưa check-in, thực hiện check-in
         const { data: checkinData } = await axiosInstance.get(
           "/dailycheckin/checkin"
         );
 
-        if (checkinData[0].handle_daily_checkin) {
+        // Kiểm tra kết quả check-in
+        if (checkinData[0]?.handle_daily_checkin) {
           const { consecutive_days, reward_points } =
             checkinData[0].handle_daily_checkin;
 
+          // Điều hướng tới trang check-in
           return navigate(
-            `checking?consecutive_days=${consecutive_days}&reward_points=${reward_points}`
+            `/checking?consecutive_days=${consecutive_days}&reward_points=${reward_points}`
           );
         }
       } catch (error) {
@@ -131,11 +139,7 @@ function Splash() {
     <>
       <div className="flex flex-col justify-center items-center space-y-4 ">
         <div className="w-52 h-52 mt-10 rounded-full overflow-hidden">
-          <img
-            src="https://s480-ava-grp-talk.zadn.vn/b/6/3/a/2/480/b8cdc18b59dbe6476b2bc83f1d3346a1.jpg"
-            alt="Avatar"
-            className="w-full h-full object-cover"
-          />
+          <img src={Logo} alt="Avatar" className="w-full h-full object-cover" />
         </div>
         <div className="text-center">
           <p className="text-4xl py-4">👋 Hey!</p>

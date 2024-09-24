@@ -92,7 +92,7 @@ const Task: React.FC<TaskItemProps> = ({ task, setPointUser }) => {
           <div className="flex flex-col">
             <span className="text-base font-semibold">{task.name}</span>
             <span className="text-white text-base font-medium">
-              + {task.rewardPoint} MP
+              + {task.rewardPoint} MMO
             </span>
           </div>
 

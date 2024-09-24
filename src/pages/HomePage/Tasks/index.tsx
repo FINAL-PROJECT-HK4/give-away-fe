@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Task from "./Task";
 import Categories from "./Categories";
 import SkeletonTasks from "../../../components/SkeletonTasks";
@@ -33,7 +33,6 @@ function Tasks({ setPointUser }: IProps) {
   const [tasks, setTasks] = useState<TaskItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [idCategoryActive, setIdCategoryActive] = useState<string>("");
-  const userId = useMemo(() => localStorage.getItem("userId"), []);
 
   const handleChangeCategory = (id: string) => {
     setIdCategoryActive(id);

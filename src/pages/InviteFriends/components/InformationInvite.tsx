@@ -43,7 +43,7 @@ function InformationInvite() {
             </div>
             <div className="flex flex-col gap-1">
               <h4 className="h4-semibold">Get bonuses</h4>
-              <p className="p-gray text-lg leading-[21px]">MP points</p>
+              <p className="p-gray text-lg leading-[21px]">MMO points</p>
             </div>
           </div>
         </div>

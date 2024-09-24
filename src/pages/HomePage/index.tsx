@@ -32,7 +32,7 @@ function HomePage() {
           {user.username}
         </p>
         {pointUser !== null ? (
-          <h1 className="text-3xl font-bold mt-5">{pointUser} MP</h1>
+          <h1 className="text-3xl font-bold mt-5">{pointUser} MMO</h1>
         ) : (
           <SkeletonPointUser />
         )}

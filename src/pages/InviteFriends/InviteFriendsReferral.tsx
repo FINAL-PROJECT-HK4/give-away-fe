@@ -53,7 +53,7 @@ function InviteFriendsReferral() {
         className=" w-14 h-14"
       />
       <p className="font-bold text-3xl text-center w-[67%]">Invite friends</p>
-      <p className="font-bold text-3xl text-center">and get more MP</p>
+      <p className="font-bold text-3xl text-center">and get more MMO</p>
 
       <button
         onClick={handleOpenReferral}
