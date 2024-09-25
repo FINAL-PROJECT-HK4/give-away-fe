@@ -40,7 +40,11 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(error); // Xử lý lỗi nếu originalRequest là undefined
     }
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (
+      error.response?.status === 401 &&
+      !originalRequest._retry &&
+      localStorage.getItem("accessToken")
+    ) {
       originalRequest._retry = true;
 
       try {

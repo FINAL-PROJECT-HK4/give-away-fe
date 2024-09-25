@@ -101,7 +101,7 @@ function Tasks({ setPointUser }: IProps) {
     return task.idTaskCategory === idCategoryActive;
   });
 
-  if (categories.length === 0) return <SkeletonTasks />;
+  if (categories.length === 0 || tasks.length === 0) return <SkeletonTasks />;
 
   return (
     <>
