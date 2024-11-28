@@ -1,4 +1,3 @@
-import Crown from "../assets/premium-quality.png";
 
 interface AvatarProps {
   name: string;
@@ -10,7 +9,7 @@ const Avatar: React.FC<AvatarProps> = ({ name }) => {
     const firstChar = str?.charAt(0).toLocaleLowerCase();
 
     if (firstChar === "c" || firstChar === "b") {
-      return "rgb(247, 53, 255)";
+      return "rgb(63, 196, 191)";
     }
 
     if (firstChar === "k") {
@@ -20,18 +19,7 @@ const Avatar: React.FC<AvatarProps> = ({ name }) => {
     return "rgb(63, 196, 191)";
   };
 
-  const nameToCrown = () => {
-    const nameUser = name?.toLocaleLowerCase();
-
-    if (
-      nameUser === "louisnguyen1912" ||
-      nameUser === "baotran0108" ||
-      nameUser == "nathando91" ||
-      nameUser == "colab_bui"
-    ) {
-      return true;
-    }
-  };
+  
 
   return (
     <div className="flex justify-center items-center">
@@ -42,13 +30,6 @@ const Avatar: React.FC<AvatarProps> = ({ name }) => {
         }}
       >
         {initial}
-        {nameToCrown() && (
-          <img
-            src={Crown}
-            alt=""
-            className="w-10 h-10 absolute top-12 translate-x-1/2 rotate-45"
-          />
-        )}
       </div>
     </div>
   );

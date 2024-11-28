@@ -23,7 +23,7 @@ function EveryRewardEl({ icon, nameOfReward, amountToken }: EveryReward) {
       </div>
 
       <div className="w-fit font-medium flex items-center h-[40px]">
-        +{Intl.NumberFormat().format(amountToken)} MMO
+        +{Intl.NumberFormat().format(amountToken)} Points
       </div>
     </div>
   );

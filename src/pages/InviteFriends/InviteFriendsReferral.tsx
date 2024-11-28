@@ -1,16 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import FriendList from "./components/FriendList";
 import InformationInvite from "./components/InformationInvite";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "react-toastify";
+import SkeletonFriend from "../../components/SkeletonFriend/SkeletonFriend";
+
+const message = "Join me on this platform!";
 
 function InviteFriendsReferral() {
   const [openReferral, setOpenReferral] = useState<boolean>(false);
   const [inviteCode, setInviteCode] = useState<string>("");
   const [friends, setFriends] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleOpenReferral = () => {
     setOpenReferral(true);
@@ -31,13 +35,16 @@ function InviteFriendsReferral() {
         }
       } catch (error) {
         console.error("Error fetching user:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
     getInfoUser();
   }, []);
 
-  const inviteLink = `https://t.me/barotran_mini_bot/naikyo?startapp=${inviteCode}`;
-  const message = "Join me on this platform!";
+  const inviteLink = useMemo(() => {
+    return `https://t.me/barotran_mini_bot/TapHoaMMO?startapp=${inviteCode}`;
+  }, [inviteCode]);
 
   const handleShareLink = () => {
     const telegramShareUrl = `https://t.me/share/url?url=${encodeURIComponent(
@@ -53,19 +60,21 @@ function InviteFriendsReferral() {
         className=" w-14 h-14"
       />
       <p className="font-bold text-3xl text-center w-[67%]">Invite friends</p>
-      <p className="font-bold text-3xl text-center">and get more MMO</p>
+      <p className="font-bold text-3xl text-center">and get more Points</p>
 
       <button
         onClick={handleOpenReferral}
-        className=" absolute bottom-24 bg-white text-black text-base font-[600] w-full py-5 tracking-normal rounded-lg"
+        className=" absolute bottom-24 bg-[#ccfd07] text-black text-base font-[600] w-full py-5 tracking-normal rounded-lg"
       >
         Invite friends
       </button>
-      {friends.length !== 0 ? (
+      {friends.length !== 0 && !isLoading ? (
         <FriendList friends={friends} />
       ) : (
-        <InformationInvite />
+        !isLoading && <InformationInvite />
       )}
+
+      {isLoading && <SkeletonFriend />}
 
       {openReferral && (
         <div
@@ -93,14 +102,14 @@ function InviteFriendsReferral() {
                 toast.success("Copy successful");
               }}
             >
-              <button className="bg-white mt-6 text-black text-base font-[600] w-full py-3 tracking-normal rounded-lg">
+              <button className="bg-[#ccfd07] mt-6 text-black text-base font-[600] w-full py-3 tracking-normal rounded-lg">
                 Copy invite link
               </button>
             </CopyToClipboard>
 
             <button
               onClick={handleShareLink}
-              className="bg-white mt-4 -mb-4 text-black text-base font-[600] w-full py-3 tracking-normal rounded-lg"
+              className="border border-solid border-[#ccfd07] text-[#ccfd07] mt-4 -mb-4 text-base font-[600] w-full py-3 tracking-normal rounded-lg"
             >
               Share invite link
             </button>

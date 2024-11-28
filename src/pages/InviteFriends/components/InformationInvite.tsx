@@ -28,9 +28,9 @@ function InformationInvite() {
               <div className="absolute bottom-0 left-[50%] top-0 -z-10 h-full w-[3px] translate-x-[-50%] rounded-[2px] bg-[rgba(0,0,0,0.06)]"></div>
             </div>
             <div className="flex flex-col gap-1">
-              <h4 className="h4-semibold">Fren joins MMO</h4>
+              <h4 className="h4-semibold">Fren joins BTP</h4>
               <p className="p-gray text-lg leading-[21px]">
-                Creates an account on MMO
+                Creates an account on Points
               </p>
             </div>
           </div>
@@ -43,7 +43,7 @@ function InformationInvite() {
             </div>
             <div className="flex flex-col gap-1">
               <h4 className="h4-semibold">Get bonuses</h4>
-              <p className="p-gray text-lg leading-[21px]">MMO points</p>
+              <p className="p-gray text-lg leading-[21px]">Points </p>
             </div>
           </div>
         </div>

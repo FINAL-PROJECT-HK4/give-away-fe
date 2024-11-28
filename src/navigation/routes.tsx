@@ -4,6 +4,7 @@ import HomePage from "../pages/HomePage";
 import InviteFriendsReferral from "../pages/InviteFriends/InviteFriendsReferral";
 import Reward from "../pages/Reward";
 import CheckingDaily from "../pages/CheckingDaily";
+import Wallet from "../pages/Wallet/Wallet";
 
 interface Route {
   path: string;
@@ -15,7 +16,8 @@ interface Route {
 export const routes: Route[] = [
   { path: "/", Component: Splash, isFooter: false },
   { path: "/home-page", Component: HomePage, isFooter: true },
-  { path: "/reward", Component: Reward, isFooter: true },
+  { path: "/game", Component: Reward, isFooter: true },
   { path: "/checking", Component: CheckingDaily, isFooter: false },
   { path: "/frends", Component: InviteFriendsReferral, isFooter: true },
+  { path: "/wallet", Component: Wallet, isFooter: true },
 ];

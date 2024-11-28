@@ -46,7 +46,7 @@ const FriendList: React.FC<FriendListProps> = ({ friends }) => {
               <div className="flex h-[24px] gap-[6px]">
                 <p className="h4-semibold">
                   {friend.user.reward_point}{" "}
-                  <span className="text-[#888C94]">MMO</span>
+                  <span className="text-[#888C94]">Points</span>
                 </p>
               </div>
             </li>

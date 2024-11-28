@@ -46,7 +46,30 @@ const Task: React.FC<TaskItemProps> = ({ task, setPointUser }) => {
   const handleClick = async () => {
     if (status === "init") {
       setLoading(true);
+
       try {
+        if (task.id === "cm1g90zn10000cka5xig4wyuo") {
+          const apiCheckResponse = await axiosInstance.get(`/external-api`);
+          await delay(task.taskCategory.secondsWait * 1000);
+          if (!apiCheckResponse.data) {
+            console.error("API check failed. Task cannot start.");
+            setLoading(false);
+            return;
+          }
+        }
+
+        if (task.id === "cm1g90zn10000cka5xig4wiox") {
+          const apiCheckResponse = await axiosInstance.get(
+            `/external-api/order`
+          );
+          await delay(task.taskCategory.secondsWait * 1000);
+          if (!apiCheckResponse.data) {
+            console.error("API check failed. Task cannot start.");
+            setLoading(false);
+            return;
+          }
+        }
+
         await delay(task.taskCategory.secondsWait * 1000);
         const result = await startTask();
 
@@ -84,15 +107,15 @@ const Task: React.FC<TaskItemProps> = ({ task, setPointUser }) => {
 
   return (
     <div className="w-full">
-      <div className="flex justify-between w-full items-center mt-3 gap-2">
+      <div className="flex justify-between w-full items-center mt-10 gap-2">
         <div className="h-10 w-10 rounded-full bg-[#323232] flex justify-center items-center">
           <img src={task.icon} alt="" className="w-4 h-4" />
         </div>
         <div className="flex justify-between item flex-1 mr-4">
           <div className="flex flex-col">
             <span className="text-base font-semibold">{task.name}</span>
-            <span className="text-white text-base font-medium">
-              + {task.rewardPoint} MMO
+            <span className="text-[#ccfd07] text-base font-medium">
+              + {task.rewardPoint} Points
             </span>
           </div>
 
@@ -107,7 +130,7 @@ const Task: React.FC<TaskItemProps> = ({ task, setPointUser }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => handleClick()}
-                className={`btn btn-sm border-none text-white hover:bg-[#353535] font-normal w-14 h-7 rounded-full bg-[#323232] text-sm claim`}
+                className="btn btn-sm border-none text-white hover:bg-[#353535] font-normal w-14 h-7 rounded-full bg-[#323232] text-sm claim"
               >
                 Start
               </a>
